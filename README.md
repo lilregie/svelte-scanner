@@ -14,42 +14,42 @@ This library tries to use the [Barcode Detection API](https://developer.mozilla.
 Just open your project and use the command line to install:
 
 ```bash
-yarn add modern-svelte-qr-scanner -D             # if you are using yarn
-npm install modern-svelte-qr-scanner --save-dev  # if you are using npm
+yarn add -D @lilregie/svelte-scanner             # if you are using yarn
+npm install --save-dev @lilregie/svelte-scanner  # if you are using npm
 ```
 
 ## Usage
 
-Assuming you have a svelte/sveltekit app up and running, just paste in the following example
+Assuming you have a SvelteKit app up and running, just paste in the following example
 
-```html
+```svelte
 <script lang="ts">
-    import QR from "modern-svelte-qr-scanner";
+  import QR from "@lilregie/svelte-scanner";
 
-    let previewWidth;
-    let mediaErrorMessage = "";
+  let previewWidth;
+  let mediaErrorMessage = "";
 
-    function onQRScan(event: CustomEvent) {
-        alert(event.detail.qrContent);
-    }
+  function onQRScan(event: CustomEvent) {
+    alert(event.detail.qrContent);
+  }
 </script>
 <div class="qr-container">
-    <div class="qr-wrapper" bind:clientWidth={w}>
-        <QR
-            on:scan={onQRScan}
-            previewWidth_px={w}
-            previewHeight_px={w}
-            bind:mediaErrorMessage
-        >
-            <div slot="loading" class="loading">
-                <span>Loading Animation, but text</span>
-            </div>
-            <div slot="failedToInitialize" class="failed-to-initialize">
-                Failed to initialize camera.<br>
-                Error: {mediaErrorMessage}
-            </div>
-        </QR>
-    </div>
+  <div class="qr-wrapper" bind:clientWidth={w}>
+    <QR
+      on:scan={onQRScan}
+      previewWidth_px={w}
+      previewHeight_px={w}
+      bind:mediaErrorMessage
+    >
+      <div slot="loading" class="loading">
+        <span>Loading Animation, but text</span>
+      </div>
+      <p slot="failedToInitialize" class="failed-to-initialize">
+        Failed to initialize camera.<br>
+        Error: {mediaErrorMessage}
+      </p>
+    </QR>
+  </div>
 </div>
 ```
 
@@ -105,23 +105,25 @@ yarn package
 1. svelte-select not being included
 For some reason, sometimes you might have to install `svelte-select` manually with a fresh project.
 
-fix:
+Fix:
+
 ```bash
-yarn add svelte-select -D             # if you are using yarn
-npm install svelte-select --save-dev  # if you are using npm
+yarn add -D svelte-select            # if you are using yarn
+npm install --save-dev svelte-select # if you are using npm
 ```
 
 2. Library's requiring bundling
 When using SvelteKit, you must include some of the older library's in the optimizeDeps option.
 
-fix: Add them to the your `svelte.config.js`.
+Fix: Add them to your `svelte.config.js`.
+
 ```js
 const config = {
-  ...,
+  …,
   kit: {
-     ...,
+     …,
      vite: {
-       ...,
+      …,
       optimizeDeps: {
         include: [
           "events",
