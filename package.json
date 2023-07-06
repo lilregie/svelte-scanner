@@ -1,7 +1,20 @@
 {
-  "name": "modern-svelte-qr-scanner",
+  "name": "@lilregie/svelte-scanner",
+  "description": "Svelte compoonent for Barcode & QR code scanning",
+  "homepage": "https://github.com/lilregie/svelte-scanner#readme",
+  "bugs": {
+    "url": "https://github.com/lilregie/svelte-scanner/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github:lilregie/svelte-scanner"
+  },
   "license": "MIT",
-  "version": "1.6.2",
+  "version": "0.1.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && yarn run package",
@@ -10,6 +23,18 @@
     "prepublishOnly": "yarn run package",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "type": "module",
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "events": "^3.3.0",
+    "lodash": "^4.17.21",
+    "stampit": "^4.3.2",
+    "svelte-select": "^4.4.7",
+    "svelte2tsx": "^0.6.16",
+    "uuid": "^9.0.0",
+    "visibilityjs": "^2.0.2"
   },
   "devDependencies": {
     "@sveltejs/adapter-cloudflare": "^2.3.0",
@@ -27,26 +52,17 @@
     "typescript": "^5.0.0",
     "vite": "^4.3.9"
   },
-  "type": "module",
-  "svelte": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "dependencies": {
-    "events": "^3.3.0",
-    "lodash": "^4.17.21",
-    "stampit": "^4.3.2",
-    "svelte-select": "^4.4.7",
-    "svelte2tsx": "^0.6.16",
-    "uuid": "^9.0.0",
-    "visibilityjs": "^2.0.2"
-  },
   "peerDependencies": {
-    "@sveltejs/kit": "^1.20.4",
-    "svelte": "^3.59.2"
+    "@sveltejs/kit": "^1.0",
+    "svelte": "^3.0"
   },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js"
     }
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
