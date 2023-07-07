@@ -90,6 +90,7 @@
     class:compact={compactMode}
     transition:fade
     on:click|self={closeDialog}
+    on:keyup={closeDialog}
     bind:clientWidth={previewWidth_px}
     bind:clientHeight={previewHeight_px}
   >
@@ -98,7 +99,7 @@
       class:compact={compactMode}
       transition:fly={{ y: -200, duration: 350 }}
     >
-      <div class="close-icon" on:click={closeDialog}>
+      <div class="close-icon" on:click={closeDialog} on:keyup={closeDialog}>
         <CloseIcon />
       </div>
       <h3>Select a camera</h3>
@@ -226,6 +227,7 @@
 
       .barcode-engine {
         margin-top: 0.5rem;
+
         code {
           background-color: #eee;
           padding: 0.1rem;
