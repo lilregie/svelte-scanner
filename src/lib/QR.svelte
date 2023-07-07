@@ -224,11 +224,11 @@
 	/>
 
 	{#if !scannerInitialized}
-		<div transition:fade|local class="transition-wrapper">
+		<div transition:fade class="transition-wrapper">
 			<slot name="loading" />
 		</div>
 	{:else if !camerasInitialized}
-		<div transition:fade|local class="transition-wrapper">
+		<div transition:fade class="transition-wrapper">
 			<slot name="failedToInitialize" />
 		</div>
 	{/if}

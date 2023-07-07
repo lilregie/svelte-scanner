@@ -88,7 +88,7 @@
   <div
     class="dialog-container"
     class:compact={compactMode}
-    transition:fade
+    transition:fade|global
     on:click|self={closeDialog}
     on:keyup={closeDialog}
     bind:clientWidth={previewWidth_px}
@@ -97,7 +97,7 @@
     <div
       class="dialog-content"
       class:compact={compactMode}
-      transition:fly={{ y: -200, duration: 350 }}
+      transition:fly|global={{ y: -200, duration: 350 }}
     >
       <div class="close-icon" on:click={closeDialog} on:keyup={closeDialog}>
         <CloseIcon />
