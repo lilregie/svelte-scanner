@@ -5,7 +5,6 @@
 	let w: number;
 	let mediaErrorMessage = "";
 
-
 	function onQRScan(event: CustomEvent) {
 		alert(event.detail.qrContent);
 	}
@@ -20,11 +19,11 @@
 			bind:mediaErrorMessage
 		>
 			<div slot="loading" class="loading">
-				<span>Loading animation go rotate (custom text)</span>
+				<span>Loading</span>
 			</div>
 			<div slot="failedToInitialize" class="failed-to-initialize">
 				Failed to initialize camera.<br>
-				Error: {mediaErrorMessage}
+				{mediaErrorMessage}
 			</div>
 		</QR>
 	</div>
@@ -55,12 +54,11 @@
 			}
 
 			.loading span {
-				animation: spin 2s linear infinite;
+				animation: glow 1s infinite alternate;
 
-				@keyframes spin {
+				@keyframes glow {
 					100% {
-						-webkit-transform: rotate(360deg);
-						transform: rotate(360deg);
+						text-shadow: 0 0 5px white;
 					}
 				}
 			}
