@@ -31,7 +31,7 @@
     "events": "^3.3.0",
     "lodash": "^4.17.21",
     "stampit": "^4.3.2",
-    "svelte-select": "^4.4.7",
+    "svelte-select": "^5.6.1",
     "svelte2tsx": "^0.6.16",
     "uuid": "^9.0.0",
     "visibilityjs": "^2.0.2"

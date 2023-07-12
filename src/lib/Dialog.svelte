@@ -115,11 +115,12 @@
           items={getUserCameraList(camerasAvailable)}
           on:select={cameraSelect}
           value={selectedCamera}
-          isSearchable={false}
-          isClearable={false}
+          searchable={false}
+          clearable={false}
           listAutoWidth={false}
-          noOptionsMessage="No cameras found"
-        />
+        >
+          <div slot="empty">No cameras found<div>
+        </Select>
       </div>
 
       <div class="mirror-input">

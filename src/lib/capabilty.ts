@@ -31,7 +31,7 @@ export async function testCapabilities(): Promise<Error> {
     if (!WasmSupported) {
         return new Error("WebAssembly Not Supported")
     }
-    
+
     return null
 }
 
@@ -39,7 +39,7 @@ export async function testNativeBarcodeReader() {
     if (!browser) {
         return null;
     }
-    
+
     if ("BarcodeDetector" in window) {
         const supportedFormats = await BarcodeDetector.getSupportedFormats();
         return supportedFormats.includes("qr_code")
