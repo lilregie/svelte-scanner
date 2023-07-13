@@ -18,7 +18,6 @@
   import type { Writable } from "svelte/store";
   import { get } from "svelte/store";
 
-
   const dispatch = createEventDispatcher();
 
   export let mirrorCamera = getValue("mirrorCamera") || false;
@@ -90,7 +89,7 @@
     class:compact={compactMode}
     transition:fade
     on:click|self={closeDialog}
-    on:keyup={closeDialog}
+    on:keyup|self={closeDialog}
     bind:clientWidth={previewWidth_px}
     bind:clientHeight={previewHeight_px}
   >

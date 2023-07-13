@@ -80,7 +80,6 @@
 		);
 		newChosenCamera.aspectRatio = cameraAspectRatio;
 
-
 		if (scanner) {
 			await cameraStop();
 		}
