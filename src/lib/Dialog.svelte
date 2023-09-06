@@ -71,7 +71,7 @@
 
 	let selectedCamera: CameraSelection;
 
-	onMount(()=>{
+	onMount(() => {
 		let label = getUserCameraList(camerasAvailable).filter(camera => {
 			return camera.value === get(selectedCameraID);
 		})[0]?.label || "Unknown";
