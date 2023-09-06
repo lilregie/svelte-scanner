@@ -43,7 +43,7 @@
     "@types/events": "^3.0.0",
     "@types/lodash": "^4.14.195",
     "@types/uuid": "^9.0.2",
-    "publint": "^0.1.12",
+    "publint": "^0.2.2",
     "sass": "^1.63.6",
     "svelte": "^3.59.2",
     "svelte-check": "^3.4.4",
