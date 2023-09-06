@@ -247,9 +247,8 @@
 			background: #222222;
 			margin-left: 50%;
 			transform: translateX(-50%) scaleX(var(--mirror-enabled));
-
-
 		}
+
 		.floating-action-button {
 			position: absolute;
 			right: 5%;
@@ -258,11 +257,13 @@
 			background: none;
 			cursor: pointer;
 			z-index: 2;
+
 			:global(svg) {
 				color: rgba(255, 255, 255, 0.8);
 				filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
 			}
 		}
+
 		.transition-wrapper {
 			height: 100%;
 			width: 100%;

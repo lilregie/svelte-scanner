@@ -8,8 +8,4 @@ import { Camera,MediaError } from "./camera";
 // So we can force the inclusion like so:
 import wasmBinaryURL from '../zxingWebWorker/xzingBinary.wasm?url';
 
-export const Instascan = {
-    Scanner: Scanner,
-    Camera: Camera,
-    MediaError: MediaError
-};
+export const Instascan = { Scanner, Camera, MediaError };
