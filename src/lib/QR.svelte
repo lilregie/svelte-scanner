@@ -14,12 +14,11 @@
 	import GearIcon from "./icons/GearIcon.svelte";
 	import { testCapabilities } from "./capabilty";
 	import type { Writable, Unsubscriber } from 'svelte/store'
-	import { derived, get, writable } from "svelte/store";
+	import { writable } from "svelte/store";
 
 	const dispatch = createEventDispatcher();
 
 	export let scannerInitialized = false;
-	let cameraAspectRatio = 1.6;
 	let camerasInitialized: boolean = false;
 
 	// Whether to scan continuously for QR codes. If false, use scanner.scan() to manually scan.
@@ -42,9 +41,6 @@
 	//  increases CPU usage but makes scan response faster. Default 1 (i.e. analyze every frame).
 	export let scanPeriod = 1;
 
-	export let previewWidth_px = 800;
-	export let previewHeight_px = 450;
-
 	export let mediaErrorMessage = "";
 
 	// Decides the style of the modal for the camera selection dialog.
@@ -58,11 +54,10 @@
 	let scanner: Scanner;
 
 	let videoPreviewElm: HTMLVideoElement;
-	let videoPreviewStyleTags: string = "";
 
 	let Instascan: typeof import("./instascan/index").Instascan;
 
-	async function updateCamera(_selectedCameraID: string) {
+	async function updateCamera(selectedCameraID: string) {
 		if (!browser || !Instascan) {
 			return null;
 		}
@@ -76,9 +71,8 @@
 		}
 		let [newChosenCamera, currentCameraMirrorStatus] = chooseCamera(
 			camerasAvailable,
-			_selectedCameraID
+			selectedCameraID
 		);
-		newChosenCamera.aspectRatio = cameraAspectRatio;
 
 		if (scanner) {
 			await cameraStop();
@@ -96,7 +90,7 @@
 		}
 
 		if (browser) {
-			console.log("Starting With Camera",camera)
+			console.log("Starting With Camera", camera)
 
 			if (camera) {
 				scanner = new Instascan.Scanner({
@@ -175,34 +169,14 @@
 		camerasInitialized = false;
 		scannerInitialized = true;
 	}
-
-	function updateVideoAspectRatio() {
-		videoPreviewStyleTags = `
-			${
-				(videoPreviewElm?.videoWidth || 0) < (videoPreviewElm?.videoHeight) || 0
-				? "width: var(--previewWidth);"
-				: "height: var(--previewHeight);"
-			}
-			${
-				mirror ?
-				"--mirror-enabled: -1" : "--mirror-enabled: 1"
-			}
-		`
-	}
-
-	setInterval(updateVideoAspectRatio, 100);
 </script>
 
-<div
-	class="video-container"
-	style={`--previewWidth:${previewWidth_px}px;--previewHeight:${previewHeight_px}px;`}
->
-	<!-- svelte-ignore a11y-media-has-caption -->
+<div class="video-container">
 	<video
 		id="cam-preview"
 		bind:this={videoPreviewElm}
 		hidden={!scannerInitialized || !camerasInitialized}
-		style={videoPreviewStyleTags}
+		style={ mirror ? "--mirror-enabled: -1" : "--mirror-enabled: 1" }
 		autoplay
 		muted
 		playsinline
@@ -235,18 +209,21 @@
 
 <style lang="scss">
 	.video-container {
-		width: min-content;
-		height: min-content;
 		box-sizing: border-box;
 		position: relative;
-		width: var(--previewWidth);
-		height: var(--previewHeight);
 		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		width: 100%;
 
 		#cam-preview {
 			background: #222222;
-			margin-left: 50%;
-			transform: translateX(-50%) scaleX(var(--mirror-enabled));
+			object-fit: cover;
+			transform: scaleX(var(--mirror-enabled));
+			height: 100%;
+			width: 100%;
 		}
 
 		.floating-action-button {

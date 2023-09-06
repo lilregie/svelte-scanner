@@ -2,7 +2,6 @@
 	import QR from "$lib/index";
 	import "../global.scss";
 
-	let w: number;
 	let mediaErrorMessage = "";
 
 	function onQRScan(event: CustomEvent) {
@@ -11,11 +10,9 @@
 </script>
 
 <div class="qr-container">
-	<div class="qr-wrapper" bind:clientWidth={w}>
+	<div class="qr-wrapper">
 		<QR
 			on:scan={onQRScan}
-			previewWidth_px={w}
-			previewHeight_px={w}
 			bind:mediaErrorMessage
 		>
 			<div slot="loading" class="loading">
@@ -31,14 +28,25 @@
 
 <style lang="scss">
 	.qr-container {
-		width: 100vw;
+		background: #bc4e9c;
+		background: radial-gradient(circle, #bc4e9c 0%, #f80759 100%);
+		box-sizing: border-box;
 		display: flex;
 		justify-content: center;
+		align-items: center;
+		width: 100dvw;
+		height: 100dvh;
+		padding: 1rem;
 
 		.qr-wrapper {
-			width: 100vw;
-			max-width: 600px;
-			background: #222222;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 1rem;
+			overflow: hidden;
+			width: 600px;
+			max-width: 100%;
+			aspect-ratio: 1 / 1;
 
 			.loading,
 			.failed-to-initialize {
