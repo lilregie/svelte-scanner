@@ -7,13 +7,13 @@ import { testNativeBarcodeReader } from '$lib/capabilty';
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 
-import { browser } from '$app/environment';
+import { BROWSER } from 'esm-env';
 let worker: Worker | null = null;
 
 export let barcodeEngine: Writable<"zxing" | "native" | null> = writable(null);
 
 testNativeBarcodeReader().then((nativeBarcodeReaderSupported)=>{
-    if (!browser) {
+    if (!BROWSER) {
         return;
     }
 
@@ -40,7 +40,7 @@ export async function scanData(data: Uint8ClampedArray, width: number, height: n
             // Worker Not Ready Yet
             setTimeout(()=>{resolve({ result: null, error: null});}, 50)
         }
-        
+
     })
 
     return await promise

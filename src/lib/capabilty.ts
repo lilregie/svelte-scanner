@@ -1,7 +1,7 @@
-import { browser } from "$app/environment";
+import { BROWSER } from "esm-env";
 
 export async function testCapabilities(): Promise<Error> {
-    if (!browser) {
+    if (!BROWSER) {
         return null;
     }
 
@@ -36,7 +36,7 @@ export async function testCapabilities(): Promise<Error> {
 }
 
 export async function testNativeBarcodeReader() {
-    if (!browser) {
+    if (!BROWSER) {
         return null;
     }
 

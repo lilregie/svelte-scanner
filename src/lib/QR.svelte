@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Scanner } from "./instascan/scanner";
 	import { onDestroy, onMount } from "svelte";
-	import { browser } from "$app/environment";
+	import { BROWSER } from "esm-env";
 	import { fade } from "svelte/transition";
 	import { createEventDispatcher } from "svelte";
 
@@ -58,7 +58,7 @@
 	let Instascan: typeof import("./instascan/index").Instascan;
 
 	async function updateCamera(selectedCameraID: string) {
-		if (!browser || !Instascan) {
+		if (!BROWSER || !Instascan) {
 			return null;
 		}
 		scannerInitialized = false;
@@ -89,7 +89,7 @@
 			return;
 		}
 
-		if (browser) {
+		if (BROWSER) {
 			console.log("Starting With Camera", camera)
 
 			if (camera) {
@@ -132,7 +132,7 @@
 	let selectedCameraUnsubscriber: Unsubscriber;
 
 	onMount(async () => {
-		if (browser) {
+		if (BROWSER) {
 			({ Instascan } = await import("./instascan/index"));
 			Instascan.Camera.setMediaErrorCallback(createMediaError);
 
@@ -142,7 +142,7 @@
 		}
 	});
 	onDestroy(async () => {
-		if (browser) {
+		if (BROWSER) {
 			if (selectedCameraUnsubscriber) {
 				selectedCameraUnsubscriber();
 			}
