@@ -1,7 +1,7 @@
 import ZXingModule from './zxing';
 
 let ZXing = ZXingModule({}).then(function (instance) {
-  ZXing = instance;
+	ZXing = instance;
 });
 
 self.addEventListener("message", e => {
