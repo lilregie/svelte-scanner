@@ -1,6 +1,6 @@
 import { BROWSER } from "esm-env";
 
-export async function testCapabilities(): Promise<Error> {
+export async function testCapabilities(): Promise<Error | null> {
 	if (!BROWSER) {
 		return null;
 	}

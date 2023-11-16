@@ -1,14 +1,15 @@
-export let mediaErrorCallback: CallableFunction = null;
+export let mediaErrorCallback: CallableFunction | null = null;
 
-function cameraName(label) {
+function cameraName(label: string) {
 	let clean = label.replace(/\s*\([0-9a-f]+(:[0-9a-f]+)?\)\s*$/, '');
-	return clean || label || null;
+
+	return clean || label;
 }
 
 export class MediaError extends Error {
 	type: any;
 
-	constructor(type) {
+	constructor(type: any) {
 		super(`Cannot access video stream (${type}).`);
 		this.type = type;
 	}
@@ -18,7 +19,7 @@ export class Camera {
 	id: string;
 	name: string;
 	aspectRatio: number;
-	_stream: MediaStream;
+	_stream: MediaStream | null;
 
 	constructor(id: string, name: string) {
 		this.id = id;
@@ -31,7 +32,7 @@ export class Camera {
 		let constraints = {
 			audio: false,
 			video: {
-				deviceId: this.id,
+				deviceId: { exact: this.id },
 			}
 		};
 
@@ -47,10 +48,7 @@ export class Camera {
 			return;
 		}
 
-		for (let stream of this._stream.getVideoTracks()) {
-			stream.stop();
-		}
-
+		this._stream.getVideoTracks().forEach(stream => stream.stop())
 		this._stream = null;
 	}
 
@@ -63,16 +61,16 @@ export class Camera {
 	}
 
 	static async _ensureAccess() {
-		return await this._wrapErrors(async () => {
-			let access = await navigator.mediaDevices.getUserMedia({ video: true });
+		const constraints = { video: true }
 
-			for (let stream of access.getVideoTracks()) {
-				stream.stop();
-			}
+		return await this._wrapErrors(async () => {
+			const access = await navigator.mediaDevices.getUserMedia(constraints);
+
+			access.getVideoTracks().forEach(stream => stream.stop())
 
 			// https://stackoverflow.com/a/69468263
 			// Firefox requires getting media devices after stopping all streams
-			await navigator.mediaDevices.getUserMedia({ video: true });
+			await navigator.mediaDevices.getUserMedia(constraints);
 		});
 	}
 
@@ -80,11 +78,11 @@ export class Camera {
 		mediaErrorCallback = callback
 	}
 
-	static async _wrapErrors(fn) {
+	static async _wrapErrors(fn: () => any) {
 		try {
 			return await fn();
 		} catch (e) {
-			if (e.name) {
+			if (e instanceof Error) {
 				if (mediaErrorCallback !== null) {
 					mediaErrorCallback(new MediaError(e.name))
 				} else {

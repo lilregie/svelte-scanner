@@ -111,13 +111,13 @@ class Analyzer {
 	canvasContext: CanvasRenderingContext2D;
 	decodeCallback: any;
 
-	constructor(video) {
+	constructor(video: HTMLVideoElement) {
 		this.video = video;
 
-		this.sensorLeft = null;
-		this.sensorTop = null;
-		this.sensorWidth = null;
-		this.sensorHeight = null;
+		this.sensorLeft = 0;
+		this.sensorTop = 0;
+		this.sensorWidth = 0;
+		this.sensorHeight = 0;
 
 		this.canvas = document.createElement('canvas');
 		this.canvas.style.display = 'none';
@@ -156,13 +156,13 @@ class Analyzer {
 }
 
 export class Scanner extends EventEmitter {
-	video: any;
+	video: HTMLVideoElement;
 	backgroundScan: any;
 	_continuous: any;
 	_analyzer: any;
-	_camera: Camera;
+	_camera: Camera | null;
 	_scanner: any;
-	_mirror: boolean;
+	_mirror: boolean = false;
 	_fsm: any;
 
 	constructor(opts) {

@@ -1,5 +1,5 @@
 import { Scanner } from "./scanner";
-import { Camera,MediaError } from "./camera";
+import { Camera, MediaError } from "./camera";
 
 
 // Bug in Vite as of 2022-02-05
