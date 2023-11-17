@@ -6,6 +6,10 @@ function cameraName(label: string) {
 	return clean || label;
 }
 
+export async function wait(seconds: number): Promise<void> {
+	await new Promise((resolve) => setTimeout(() => resolve(true), seconds * 1000))
+}
+
 export class MediaError extends Error {
 	type: any;
 
@@ -53,24 +57,26 @@ export class Camera {
 	}
 
 	static async getCameras() {
-		await this._ensureAccess();
-		let devices = await navigator.mediaDevices.enumerateDevices();
-		return devices
-			.filter(d => d.kind === 'videoinput')
-			.map(d => new Camera(d.deviceId, cameraName(d.label)));
+		return await this._ensureAccess(async () => {
+			const devices = await navigator.mediaDevices.enumerateDevices()
+			const videoDevices = devices.filter(d => d.kind === 'videoinput')
+
+			return videoDevices.map(d => new Camera(d.deviceId, cameraName(d.label)));
+		});
 	}
 
-	static async _ensureAccess() {
+	static async _ensureAccess(fn: () => Promise<Camera[]>) {
 		const constraints = { video: true }
 
 		return await this._wrapErrors(async () => {
-			const access = await navigator.mediaDevices.getUserMedia(constraints);
-
-			access.getVideoTracks().forEach(stream => stream.stop())
-
 			// https://stackoverflow.com/a/69468263
 			// Firefox requires getting media devices after stopping all streams
-			await navigator.mediaDevices.getUserMedia(constraints);
+
+			const access = await navigator.mediaDevices.getUserMedia(constraints);
+			const result = await fn()
+			access.getVideoTracks().forEach(stream => stream.stop())
+
+			return result
 		});
 	}
 

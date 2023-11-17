@@ -9,7 +9,7 @@
 
 	import { saveValue, getValue } from "$lib/store";
 	import { chooseCamera } from "$lib/cameraSelection";
-	import type { Camera } from "./instascan/camera";
+	import { wait, type Camera } from "./instascan/camera";
 	import { mediaErrorToMessage } from "$lib/mapErrorToHumanMessage"
 	import GearIcon from "./icons/GearIcon.svelte";
 	import { testCapabilities } from "./capabilty";
@@ -74,6 +74,10 @@
 
 		if (scanner) {
 			await cameraStop();
+			// introduce a small delay so that the hardware, OS & browser have time
+			// to catchup. Otherwise, getting access to the camera stream will often
+			// fail with an AbortError without any particular reason.
+			await wait(1)
 		}
 		await cameraStart(newChosenCamera, currentCameraMirrorStatus);
 	}
