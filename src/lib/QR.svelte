@@ -63,8 +63,6 @@
 		}
 		scannerInitialized = false;
 
-		camerasAvailable = await Instascan.Camera.getCameras();
-		console.log(camerasAvailable);
 		// When permissions are denied, it creates a fake camera
 		if (!camerasAvailable || camerasAvailable.length === 0 || camerasAvailable[0].name === null) {
 			return null
@@ -136,11 +134,15 @@
 			({ Instascan } = await import("./instascan/index"));
 			Instascan.Camera.setMediaErrorCallback(createMediaError);
 
+			camerasAvailable = await Instascan.Camera.getCameras();
+			console.log(camerasAvailable);
+
 			selectedCameraUnsubscriber = selectedCameraID.subscribe(async (newSelectedCameraID) => {
 				updateCamera(newSelectedCameraID);
 			});
 		}
 	});
+
 	onDestroy(async () => {
 		if (BROWSER) {
 			if (selectedCameraUnsubscriber) {
