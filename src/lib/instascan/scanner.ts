@@ -268,22 +268,6 @@ export class Scanner extends EventEmitter {
 
 	set mirror(mirror) {
 		this._mirror = mirror;
-
-		if (mirror) {
-			this.video.style.MozTransform = 'scaleX(-1)';
-			this.video.style.webkitTransform = 'scaleX(-1)';
-			this.video.style.OTransform = 'scaleX(-1)';
-			this.video.style.msFilter = 'FlipH';
-			this.video.style.filter = 'FlipH';
-			this.video.style.transform = 'scaleX(-1)';
-		} else {
-			this.video.style.MozTransform = null;
-			this.video.style.webkitTransform = null;
-			this.video.style.OTransform = null;
-			this.video.style.msFilter = null;
-			this.video.style.filter = null;
-			this.video.style.transform = null;
-		}
 	}
 
 	get mirror() {
