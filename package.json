@@ -10,7 +10,7 @@
     "url": "github:lilregie/svelte-scanner"
   },
   "license": "MIT",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
