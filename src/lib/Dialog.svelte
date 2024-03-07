@@ -98,9 +98,9 @@
 			class:compact={compactMode}
 			transition:fly={{ y: -200, duration: 350 }}
 		>
-			<div class="close-icon" on:click={closeDialog} on:keyup={closeDialog}>
+			<button class="close-icon" on:click={closeDialog}>
 				<CloseIcon />
-			</div>
+			</button>
 			<h3>Select a camera</h3>
 			<!-- Container to inject style vars for svelte-select -->
 			<div
@@ -176,6 +176,8 @@
 			}
 
 			.close-icon {
+				border: none;
+				background: transparent;;
 				position: absolute;
 				top: 0.5em;
 				right: 0.5em;
